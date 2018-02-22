@@ -6,6 +6,7 @@ import exclamation from "../assets/exclamation.png"
 
 export default class GalaxySNote7 extends React.Component {
   constructor(props) {
+    console.log(props)
     super(props)
     this.state = {
       panicked: false,
@@ -19,15 +20,25 @@ export default class GalaxySNote7 extends React.Component {
   }
 
   throwAFit = () => {
+    this.setState({
+      panicked: true
+    })
   }
 
   relax = () => {
+    this.setState({
+      panicked: false
+    })
+    this.props.alterEnvironment("inhospitable")
+    console.log(this.state.panicked)
   }
 
   exclaim = () => {
+    this.throwAFit()
     if (this.state.panicked) return
     this.exclaimAudio.play()
     this.squeelAudio.play()
+    setTimeout(this.relax, 3000)
   }
 
   panic = () => (<img id="galaxy-exclamation" className="exclamation" src={exclamation} alt="" />)
